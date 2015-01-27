@@ -30,7 +30,7 @@ The values are passed as string, but the reference of your type should be assign
 
 The classes are usign reflection to search the column names, reference to the values and references to your `class`
 More reference about reflection here: https://msdn.microsoft.com/en-us/library/f7ykdhsy%28v=vs.110%29.aspx
-Thats means, you need have ***exactly the same name in your model properties to your store proceadure column names**_*
+Thats means, you need have ***exactly the same name in your model properties to your store proceadure column names***
 
 If your store proceadure returns:
 
