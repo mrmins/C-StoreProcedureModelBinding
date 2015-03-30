@@ -1,13 +1,13 @@
 # Entity Framework C# Stored Procedure Model Binding
-These classes can help you to do easier the excecution of store Stored Procedure and binding it to a model.
+These classes can help you to do easier the execution of store Stored Procedure and binding it to a model.
 
 #How it's working?
-The Stored Procedure is excecuted with a `dbContext.Database.Connection.CreateCommand()` `CommandText`
+The Stored Procedure is executed with a `dbContext.Database.Connection.CreateCommand()` `CommandText`
 For that, you have need 3 values (2 requireds and 1 optional).
 
 First one, you need get your `DataBaseContext` Instance.
 This classes are working with EntityFramework DataBaseContext, but you can use it without EntityFramework without problems.
-Second one, you need assign the `StoreProcedure` name, this will used as reference to excecuted.
+Second one, you need assign the `StoreProcedure` name, this will used as reference to executed.
 The third one, will be the parameters. You can assigne any of the `SqlDbType` you can get more reference about them here: https://msdn.microsoft.com/en-us/library/system.data.sqldbtype%28v=vs.110%29.aspx and you can add it to a list of the instance `Generic.cs`.
 
 **Generic.cs** get 3 values. `Key`, `Value` and `Type`. If you need send a parameter to your store procedure like:
@@ -43,10 +43,9 @@ the properties in your Model should be:
 Excactly the same names and the model will be the encharged to bind your variable.
 
 #Example of usage
-`private List<Generic> _generic;`
+`private List<Generic> _generic;
 
-`_generic = new List<Generic>
-
+_generic = new List<Generic>
                           {
                           
                               new Generic
@@ -74,3 +73,7 @@ Now your variable `result` has all the values in a `List<ListaSolicitudModel>` w
 
 `result.First().Name //Possible null pointer exception, you need verify if result.Any() == true` 
 
+#FAQ
+1. **Can the class execute Stored Proceadures?** Yes, the principal functionallity of the class is execute stored proceadures with SQL Server, Oracle DB, MySql and Posgresql (relational databases).
+2. **Can the class exceute Non-Query and Escalar?** Yes. It's possible, Also, if you are inserting values and generating the ID's from the table or with a trigger and with the execution, are you returning the id or some other data, will be biding in your model.
+3. **Which what databases was tested?** Oracle DB, SQL Server, MySQL, Posgresql.
