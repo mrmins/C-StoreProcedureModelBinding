@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using BusinessLogic.Functions;
 
 public static class DataReaderT
 {
@@ -19,13 +18,33 @@ public static class DataReaderT
             for (var i = 0; i < dr.FieldCount; i++)
             {
                 var fieldName = dr.GetName(i);
-                var prop = props.FirstOrDefault(x => x.Name.ToLower() == fieldName.ToLower()  );
+                var prop = props.FirstOrDefault(x => x.Name.ToLower() == fieldName.ToLower());
                 if (prop == null) continue;
-                if (dr[i] != DBNull.Value )
-                    prop.SetValue(obj, dr[i], null);
+                if (dr[i] == DBNull.Value) continue;
+                switch (prop.PropertyType.Name.ToLower())
+                    {
+                    case "decimal":
+                        prop.SetValue(obj, Convert.ToDecimal(dr[i]), null);
+                        break;
+                    case "string":
+                        prop.SetValue(obj, Convert.ToString(dr[i]), null);
+                        break;
+                    case "int32":
+                        prop.SetValue(obj, Convert.ToInt32(dr[i]), null);
+                        break;
+                    case "int64":
+                        prop.SetValue(obj, Convert.ToInt64(dr[i]), null);
+                        break;
+                    case "byte":
+                        prop.SetValue(obj, Convert.ToByte(dr[i]), null);
+                        break;
+                    default:
+                        prop.SetValue(obj, dr[i], null);
+                        break;
+                    }
+                }
+                col.Add(obj);
             }
-            col.Add(obj);
-        }
         dr.Close();
         return col;
     }

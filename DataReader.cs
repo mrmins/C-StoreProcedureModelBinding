@@ -22,4 +22,12 @@ public static class DataReader
         command.CommandType = CommandType.StoredProcedure;
         return command.ExecuteReader();
     }
+
+    public static DbDataReader ReadNativeQuery(string commandText)
+    {
+        var cn = new Connection();
+        var command = new SqlCommand(commandText, cn.OpenConnection());
+        return command.ExecuteReader();
+    }
+
 }
